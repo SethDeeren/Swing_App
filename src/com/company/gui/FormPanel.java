@@ -1,10 +1,11 @@
-package com.company;
+package com.company.gui;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class FormPanel extends JPanel {
 
@@ -41,6 +42,13 @@ public class FormPanel extends JPanel {
         citzenCheck = new JCheckBox();
         taxField = new JTextField(10);
         taxLabel = new JLabel("Tax ID: ");
+        okBtn = new JButton("OK");
+
+        // Setup up mneomics
+        okBtn.setMnemonic(KeyEvent.VK_O);
+
+        nameLabel.setDisplayedMnemonic(KeyEvent.VK_N);
+        nameLabel.setLabelFor(nameField);
 
         maleRadio = new JRadioButton("male");
         femaleRadio = new JRadioButton("female");
@@ -92,7 +100,7 @@ public class FormPanel extends JPanel {
         empCombo.setModel(empModel);
         empCombo.setSelectedIndex(0);
 
-        okBtn = new JButton("OK");
+
 
         okBtn.addActionListener(new ActionListener() {
             @Override

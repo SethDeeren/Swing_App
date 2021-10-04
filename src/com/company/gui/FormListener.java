@@ -1,4 +1,4 @@
-package com.company;
+package com.company.gui;
 
 import java.util.EventListener;
 
