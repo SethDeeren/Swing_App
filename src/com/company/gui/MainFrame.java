@@ -1,5 +1,7 @@
 package com.company.gui;
 
+import com.company.controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +14,8 @@ public class MainFrame extends JFrame {
     private Toolbar toolbar;
     private FormPanel formPanel;
     private JFileChooser fileChooser;
+    private Controller controller;
+    private TablePanel tablePanel;
 
 
     public MainFrame(){
@@ -27,7 +31,12 @@ public class MainFrame extends JFrame {
         toolbar = new Toolbar();
         textPanel = new TextPanel();
         formPanel = new FormPanel();
+        tablePanel = new TablePanel();
         setJMenuBar(createMenuBar());
+
+        controller = new Controller();
+
+        tablePanel.setData(controller.getPeople());
 
         fileChooser = new JFileChooser();
         fileChooser.addChoosableFileFilter(new PersonFileFilter());
@@ -46,20 +55,18 @@ public class MainFrame extends JFrame {
         formPanel.setFormListener(new FormListener() {
             @Override
             public void formEventOccurred(FormEvent e){
-                String name = e.getName();
-                String occupation = e.getOccupation();
-                int ageCat = e.getAgeCategory(); // from FormEvent is an int can be confusing way he wrote it
-                String empCat = e.getEmpCat();
 
-                textPanel.appendText(name + ":" + occupation + ": "+ ageCat + ": " + empCat +"\n");
+                controller.addPerson(e);
+                tablePanel.refresh();
             }
         });
 
 
 
         add(toolbar, BorderLayout.NORTH);
-        add(textPanel, BorderLayout.CENTER);
         add(formPanel, BorderLayout.WEST);
+        add(tablePanel, BorderLayout.CENTER);
+
 
 
         setMinimumSize(new Dimension(500, 400));
